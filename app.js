@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
+import readline from 'node:readline/promises'
 import { tavily } from "@tavily/core";
 import Groq from "groq-sdk";
 
@@ -7,22 +8,37 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const tvly = new tavily({ apiKey: process.env.TAVILY_API_KEY });
 
 async function main() {
+
+  const rl=readline.createInterface({input:process.stdin,output:process.stdout})
+ 
+
   const messages = [
     {
       role: "system",
       content: `You are a smart personal assistent who answers the asked questions.
           You have access to following tools : 
-          1. searchWeb({query:string}) //Search the latest information and realtime data on the internet`,
+          1. searchWeb({query:string}) //Search the latest information and realtime data on the internet
+          current date and time : ${new Date().toUTCString()}`,
     },
-    {
-      role: "user",
-      content: "In which data Iphone 14 launched in India?",
-      // when was the iphone 17 launched?
-      // what is the current weather of Mumbai
-    },
+    // {
+    //   role: "user",
+    //   content: "Hii",
+    //   // when was the iphone 17 launched?
+    //   // what is the current weather of Mumbai
+    // },
   ];
 
-  while (true) {
+ while(true){
+  const question=await rl.question('you : ')
+
+  if(question === 'bye'){
+    break;
+  }
+   messages.push({
+    role:"user",
+    content:question
+  })
+   while (true) {
     const completion = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
       temperature: 0,
@@ -74,6 +90,8 @@ async function main() {
       }
     }
   }
+ }
+ rl.close()
 
   // console.log(JSON.stringify(completion2.choices[0].message, null, 2));
 }
