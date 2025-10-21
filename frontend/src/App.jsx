@@ -1,11 +1,11 @@
+
+
 import { useState } from "react";
 
 const App = () => {
 
-
   const [taskData, setTaskData] = useState('');
   const [displayText, setDisplayText] = useState([]);
-
 
 // add user message
   const handleSubmit = (e) => {
@@ -23,8 +23,8 @@ const App = () => {
         {/* message goes here  */}
 
         {/* user message  */}
-        
-        <div className="w-full max-w-2xl flex flex-col">
+
+        <div className="w-full max-w-2xl flex flex-col mt-5">
          {displayText.map((msg,index)=>(
              <div key={index}
               className={`max-w-[75%] p-2 my-1 rounded-lg text-base leading-relaxed break-words shadow-md ${
@@ -37,16 +37,11 @@ const App = () => {
             </div>
          ))}
         </div>
-        
 
         {/* assistent message here */}
         <div className="bg-neutral-800 p-3 mb-3 rounded-lg max-w-fit">
           Hello! How can I assist you today?
         </div>
-
-         
-        
-         
 
         {/* Bottom textarea goes here  */}
         <form onSubmit={handleSubmit} className="fixed inset-x-0 bottom-0 flex items-center justify-center bg-neutral-900">
