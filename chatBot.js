@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 dotenv.config();
-import readline from "node:readline/promises";
 import { tavily } from "@tavily/core";
 import Groq from "groq-sdk";
 

@@ -1,9 +1,15 @@
 import dotenv from "dotenv";
 dotenv.config();
+import cors from 'cors';
 import express from "express";
 import { generate } from "./chatBot.js";
 
 const app = express();
+app.use(cors({
+    origin: 'http://localhost:5173',   // Allow frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 app.use(express.json());
 
 app.get("/", (req, res) => {
